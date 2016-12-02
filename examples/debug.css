@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee');
+@import url('https://fonts.googleapis.com/css?family=Yrsa');
+
+.intro {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  font-family: 'Yrsa', serif;
+  font-size: 18px;
+}
+
+.intro h1 {
+  text-transform: uppercase;
+  font-family: 'Bungee', sans-serif;
+}
+
+.debug {
+  background: rgb(100, 100, 100);
+  margin-top: 10px;
+  padding: 2px 5px 0px 5px;
+  color: white;
+  text-transform: uppercase;
+  font-size: small;
+  cursor: pointer;
+}

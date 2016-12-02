@@ -5,44 +5,44 @@ import raf from 'raf';
 
 class Premonish {
   constructor(options = { selectors: [], elements: [] }) {
-    // TODO:
-    // 5. Make an estimate along the velocity vector about the
-    //    final position.
-    // 6. Lookup the closest element in the voronoi and check if it is
-    //    within a certain threshold.
-    // 7. If it is, return that + a confidence score.
-
+    this.stopped = false;
     let time = 0;
     let repeatCount = 0;
     let lastIntent = null;
     let elements = [];
     (options.selectors || []).forEach((selector) => {
-      elements = elements.concat(document.querySelectorAll(selector));
+      document.querySelectorAll(selector).forEach((el) => {
+        elements.push(el);
+      });
     });
 
     elements = elements.concat(options.elements || []);
 
     const voronoiPoints = [];
+    let scrollLeft = document.body.scrollLeft;
+    let scrollTop  = document.body.scrollTop;
+
     elements.forEach((el) => {
+      console.log(el);
       const rect = el.getBoundingClientRect();
       voronoiPoints.push({
-        x: rect.left,
-        y: rect.top,
+        x: scrollLeft + rect.left,
+        y: scrollTop + rect.top,
         el: el
       });
       voronoiPoints.push({
-        x: rect.right,
-        y: rect.top,
+        x: scrollLeft + rect.right,
+        y: scrollTop + rect.top,
         el: el
       });
       voronoiPoints.push({
-        x: rect.left,
-        y: rect.bottom,
+        x: scrollLeft + rect.left,
+        y: scrollTop + rect.bottom,
         el: el
       });
       voronoiPoints.push({
-        x: rect.right,
-        y: rect.bottom,
+        x: scrollLeft + rect.right,
+        y: scrollTop + rect.bottom,
         el: el
       });
     });
@@ -62,21 +62,28 @@ class Premonish {
     });
 
 
+    this._onmousemove = document.body.onmousemove;
     document.body.onmousemove = (e) => {
+      if (this.stopped) {
+        return;
+      }
+      scrollLeft = document.body.scrollLeft;
+      scrollTop  = document.body.scrollTop;
+
       store.set(time, {
-        x: e.clientX,
-        y: e.clientY
+        x: scrollLeft + e.clientX,
+        y: scrollTop + e.clientY
       });
 
       const { velocity, position } = store.sample(time);
 
       let x = position.x + 100 * Math.pow(1 + velocity.x, 2) * Math.sign(velocity.x);
-      x = Math.max(x, 0);
-      x = Math.min(x, window.innerWidth);
+      x = Math.max(x, scrollLeft);
+      x = Math.min(x, scrollLeft + document.documentElement.clientWidth);
 
       let y = position.y + 100 * Math.pow(1 + velocity.y, 2) * Math.sign(velocity.y);
-      y = Math.max(y, 0);
-      y = Math.min(y, window.innerHeight);
+      y = Math.max(y, scrollTop);
+      y = Math.min(y, scrollTop + document.documentElement.clientHeight);
 
       const closest = diagram.find(x, y);
 
@@ -92,15 +99,20 @@ class Premonish {
       confidence += Math.min(1, repeatCount / 10);
 
       const estimate = { x, y };
-      this._onIntent && this._onIntent(closest.data.el, confidence);
+      this._onIntent && this._onIntent({ el: closest.data.el, confidence: confidence });
       this._onMouseMove && this._onMouseMove({ velocity, position, estimate });
+      this._onmousemove && this._onmousemove(e);
     };
 
-    raf(function tick (t) {
+    const tick = (t) => {
+      if (this.stopped) {
+        return;
+      }
       time = t;
-
       raf(tick);
-    });
+    }
+
+    raf(tick);
   }
 
   onMouseMove(callback) {
@@ -109,6 +121,11 @@ class Premonish {
 
   onIntent(callback) {
     this._onIntent = callback;
+  }
+
+  stop() {
+    this.stopped = true;
+    document.body.onmousemove = this._onmousemove;
   }
 };
 
