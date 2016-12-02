@@ -1,7 +1,7 @@
 # premonish
 Predict which DOM element a user will interact with next.
 
-[View the demo](https://mathisonian.github.io.com/premonish/)
+[View the demo](https://mathisonian.github.io/premonish/)
 
 ## Installation
 
