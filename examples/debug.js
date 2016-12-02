@@ -11,7 +11,7 @@ const intro = `
     Premonish
   </h1>
   <div>
-    A small library for predicting what element a user will interact with next.<br/>Read more on <a href="https://github.com/mathisonian/premonish">github</a>.
+    A library for predicting what element a user will interact with next.<br/>Read more on <a href="https://github.com/mathisonian/premonish">github</a>.
     <br/><br/>
     <span class="debug">Show debug view</span>
   </div>
@@ -118,4 +118,3 @@ premonish.onIntent(({ el, confidence }) => {
     circle.attr('fill', 'rgb(0, 0, 0)')
   }
 });
-

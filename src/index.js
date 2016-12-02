@@ -23,7 +23,6 @@ class Premonish {
     let scrollTop  = document.body.scrollTop;
 
     elements.forEach((el) => {
-      console.log(el);
       const rect = el.getBoundingClientRect();
       voronoiPoints.push({
         x: scrollLeft + rect.left,
