@@ -3,6 +3,30 @@ Predict which DOM element a user will interact with next.
 
 [View the demo](https://mathisonian.github.io/premonish/)
 
+## About
+
+#### What does it do?
+
+You give it a list of elements and it will try to predict when a user is about to mouse over one of those elements.
+
+#### How does it work?
+
+It's pretty naive, it just looks at the velocity and position of the mouse and tries to find the element that you are probably
+moving towards based on that.
+
+#### Is it just a voronoi?
+
+It uses a voronoi under the hood, but instead if looking at current mouse position it looks at expected mouse position. In my
+testing this seems strictly better than the voronoi / bubble cursor technique.
+
+#### Why do I want this?
+
+You could use it to perform some optimizations, maybe similar to [instantclick](http://instantclick.io/).
+
+#### Whats with the name?
+
+The library has these premonitions, but they aren't always right.
+
 ## Installation
 
 ```
@@ -68,30 +92,6 @@ Call `stop()` when you are done using the library to cleanup the events it is us
 ```js
 premonish.stop();
 ```
-
-## About
-
-#### What does it do?
-
-You give it a list of elements and it will try to predict when a user is about to mouse over one of those elements.
-
-#### How does it work?
-
-It's pretty naive, it just looks at the velocity and position of the mouse and tries to find the element that you are probably
-moving towards based on that.
-
-#### Is it just a voronoi?
-
-It uses a voronoi under the hood, but instead if looking at current mouse position it looks at expected mouse position. In my
-testing this seems strictly better than the voronoi / bubble cursor technique.
-
-#### Why do I want this?
-
-You could use it to perform some optimizations, maybe similar to [instantclick](http://instantclick.io/).
-
-#### Whats with the name?
-
-The library has these premonitions, but they aren't always right.
 
 ## Author
 
