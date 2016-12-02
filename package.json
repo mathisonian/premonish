@@ -1,6 +1,6 @@
 {
   "name": "premonish",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Predict which DOM element a user will interact with next.",
   "main": "lib/index.js",
   "scripts": {
