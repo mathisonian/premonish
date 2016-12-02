@@ -15,7 +15,7 @@ $ npm install premonish
 import Premonish from 'premonish';
 const premonish = new Premonish({
   selectors: ['a', '.list-of' '.selectors', '.to', '#watch'],
-  elements: [] // A list of DOM nodes
+  elements: [] // Alternatively, provide a list of DOM elements to watch
 });
 
 premonish.onIntent(({el, confidence}) => {
@@ -31,7 +31,7 @@ premonish.onIntent(({el, confidence}) => {
 ```js
 var premonish = new Premonish({
   selectors: [], // list of selectors
-  elements: [] // A list of DOM nodes
+  elements: [] // A list of DOM elements
 });
 ```
 
