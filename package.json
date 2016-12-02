@@ -1,0 +1,43 @@
+{
+  "name": "premonish",
+  "version": "1.0.0",
+  "description": "Predict which DOM element a user will interact with next.",
+  "main": "lib/index.js",
+  "scripts": {
+    "example": "budo examples/debug.js --live -o -- -t [ babelify --presets [ es2015 ] ]",
+    "build": "babel src --out-dir lib",
+    "test": "semistandard src/** test/** && mocha --compilers js:babel-core/register",
+    "syntax-fix": "semistandard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathisonian/premonish.git"
+  },
+  "keywords": [
+    "prediction",
+    "optimization",
+    "preload"
+  ],
+  "author": "Matthew Conlen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mathisonian/premonish/issues"
+  },
+  "homepage": "https://github.com/mathisonian/premonish#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "budo": "^9.2.2",
+    "d3-selection": "^1.0.3",
+    "d3-transition": "^1.0.3",
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0",
+    "semistandard": "^9.1.0"
+  },
+  "dependencies": {
+    "curve-store": "^1.1.1",
+    "d3-voronoi": "^1.1.0",
+    "raf": "^3.3.0"
+  }
+}
