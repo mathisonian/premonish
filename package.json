@@ -6,7 +6,6 @@
   "scripts": {
     "example": "budo examples/debug.js --live -o -- -t [ babelify --presets [ es2015 ] ] -t browserify-css",
     "build": "babel src --out-dir lib",
-    "compile": "browserify src/index.js -t [ babelify --presets [ es2015 ] ]",
     "build-gh-pages": "browserify examples/debug.js -t [ babelify --presets [ es2015 ] ] -t browserify-css | indexhtmlify | metadataify --title \"premonish\" > ../gh-pages/premonish/index.html",
     "test": "semistandard src/** test/** && mocha --compilers js:babel-core/register",
     "syntax-fix": "semistandard --fix"
