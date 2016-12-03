@@ -78,7 +78,7 @@ premonish.onIntent(({el, confidence}) => {
 The `onMouseMove` callback allows users to look at some of the internal calculations that `premonish` is making.
 
 ```js
-premonish.onMouseMouse(({ position, velocity, expected }) => {
+premonish.onMouseMove(({ position, velocity, expected }) => {
   // Each value is an object { x: number, y: number }.
   // `expected` is the approximate point premonish thinks the
   // user is moving the mouse to.
