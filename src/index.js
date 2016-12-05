@@ -3,8 +3,10 @@ import { createStore } from 'curve-store';
 import { linear, derivative } from 'curve-store/lib/samplers';
 import raf from 'raf';
 
+import { sign } from './sign';
+
 class Premonish {
-  constructor(options = { selectors: [], elements: [] }) {
+  constructor (options = { selectors: [], elements: [] }) {
     this.stopped = false;
     let time = 0;
     let repeatCount = 0;
@@ -20,7 +22,7 @@ class Premonish {
 
     const voronoiPoints = [];
     let scrollLeft = document.body.scrollLeft;
-    let scrollTop  = document.body.scrollTop;
+    let scrollTop = document.body.scrollTop;
 
     elements.forEach((el) => {
       const rect = el.getBoundingClientRect();
@@ -60,14 +62,13 @@ class Premonish {
       }
     });
 
-
     this._onmousemove = document.body.onmousemove;
     document.body.onmousemove = (e) => {
       if (this.stopped) {
         return;
       }
       scrollLeft = document.body.scrollLeft;
-      scrollTop  = document.body.scrollTop;
+      scrollTop = document.body.scrollTop;
 
       store.set(time, {
         x: scrollLeft + e.clientX,
@@ -76,11 +77,11 @@ class Premonish {
 
       const { velocity, position } = store.sample(time);
 
-      let x = position.x + 100 * Math.pow(1 + velocity.x, 2) * Math.sign(velocity.x);
+      let x = position.x + 100 * Math.pow(1 + velocity.x, 2) * sign(velocity.x);
       x = Math.max(x, scrollLeft);
       x = Math.min(x, scrollLeft + document.documentElement.clientWidth);
 
-      let y = position.y + 100 * Math.pow(1 + velocity.y, 2) * Math.sign(velocity.y);
+      let y = position.y + 100 * Math.pow(1 + velocity.y, 2) * sign(velocity.y);
       y = Math.max(y, scrollTop);
       y = Math.min(y, scrollTop + document.documentElement.clientHeight);
 
@@ -109,23 +110,23 @@ class Premonish {
       }
       time = t;
       raf(tick);
-    }
+    };
 
     raf(tick);
   }
 
-  onMouseMove(callback) {
+  onMouseMove (callback) {
     this._onMouseMove = callback;
   }
 
-  onIntent(callback) {
+  onIntent (callback) {
     this._onIntent = callback;
   }
 
-  stop() {
+  stop () {
     this.stopped = true;
     document.body.onmousemove = this._onmousemove;
   }
-};
+}
 
 export default Premonish;
