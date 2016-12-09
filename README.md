@@ -16,7 +16,7 @@ moving towards based on that.
 
 #### Is it just a voronoi?
 
-It uses a voronoi under the hood, but instead if looking at current mouse position it looks at expected mouse position. In my
+It uses a voronoi under the hood, but instead of looking at current mouse position it looks at expected mouse position. In my
 testing this seems strictly better than the voronoi / bubble cursor technique.
 
 #### Why do I want this?
